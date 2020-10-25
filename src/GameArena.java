@@ -2,7 +2,6 @@
 import java.awt.Toolkit;
 import java.awt.event.KeyListener;
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicComboBoxUI;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,33 +17,22 @@ public class GameArena {
     JFrame fr;
     Canvas canvas;
     BallMovementCtrl ballCtrl;
-    int frameWidth;
-    int frameHeight;
 
     public GameArena() {
-        frameWidth = (int)(Toolkit.getDefaultToolkit().getScreenSize().width * 0.8);
-        frameHeight = (int)(Toolkit.getDefaultToolkit().getScreenSize().height * 0.7);
         initGUI();
     }
 
     private void initGUI() {
         fr = new JFrame("Ping Pong");
-        fr.setLayout(null);
-        
-        canvas = new Canvas(frameWidth, frameHeight);
+
+        canvas = new Canvas();
         canvas.setVisible(true);
-        
-        canvas.leftPaddel.setFocusable(true);
-        canvas.leftPaddel.addKeyListener(new LeftPaddelKeyHandler(this));
-        
-        canvas.rightPaddel.setFocusable(true);
-        canvas.rightPaddel.addKeyListener(new RightPaddelKeyHandler(canvas));
-        
+
+        fr.addKeyListener(new RightBarKeyHandler(this.canvas));
         
         fr.add(canvas);
-        
-        
-        fr.setSize(frameWidth, frameHeight);
+
+        fr.setSize(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height - 200);
         fr.setLocation(0, 0);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fr.setVisible(true);
@@ -55,6 +43,5 @@ public class GameArena {
         t1.start();
 
     }
-    
 
 }
